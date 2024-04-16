@@ -1,9 +1,12 @@
 """Plot word counts."""
 
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
-
 import argparse
+
+
 
 def main(args):
    df = pd.read_csv('results/dracula.csv', header=None,
@@ -21,6 +24,8 @@ def main(args):
 
    #plt.show()
 
+
+
 if __name__ == '__main__':
    parser = argparse.ArgumentParser(description="Plot word counts")
    parser.add_argument('infile', type=argparse.FileType('r'),
@@ -36,4 +41,3 @@ if __name__ == '__main__':
    args = parser.parse_args()
 
    main(args)
-

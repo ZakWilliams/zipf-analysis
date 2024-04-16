@@ -3,13 +3,14 @@ Count the occurrences of all words in a text
 and write them to a CSV-file.
 """
 
+
+
 import string
-
 from collections import Counter
-
 import utilities as util
-
 import argparse
+
+
 
 def count_words(reader):
     """Count the occurrence of each word in a string."""
@@ -20,10 +21,13 @@ def count_words(reader):
     word_counts = Counter(word_list)
     return word_counts
 
+
+
 def main(args):
     """Run the command line program."""
     word_counts = count_words(args.infile)
     util.collection_to_csv(word_counts, num=args.num)
+
 
 
 if __name__ == '__main__':
