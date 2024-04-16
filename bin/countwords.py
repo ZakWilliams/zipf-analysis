@@ -39,11 +39,3 @@ if __name__ == '__main__':
                         help='Output only n most frequent words')
     args = parser.parse_args()
     main(args)
-
-#word_counts = count_words(args.infile)
-#infile_name = args.infile.name
-
-#with open(infile_name, 'r') as reader:
-#    word_counts = count_words(reader)
-    
-#util.collection_to_csv(word_counts, num=args.num)
