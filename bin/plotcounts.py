@@ -5,31 +5,35 @@ import matplotlib.pyplot as plt
 
 import argparse
 
-parser = argparse.ArgumentParser(description="Plot word counts")
-parser.add_argument('infile', type=argparse.FileType('r'),
-                    nargs='?', default='-',
-                       help='Word count csv file name')
-parser.add_argument('--xlim', type=float, nargs=2,
-                    metavar=('XMIN', 'XMAX'),
-                    default=None, help='X-axis limits')
-parser.add_argument('--outfile', type=str,
-                    default='plotcounts.pdf',
-                    help='Output image file name')
+def main(args):
+   df = pd.read_csv('results/dracula.csv', header=None,
+                     names=('word', 'word_frequency'))
+   df['rank'] = df['word_frequency'].rank(ascending=False,
+                                          method='max')
+   df['inverse_rank'] = 1 / df['rank']
+   ax = df.plot.scatter(x='word_frequency',
+                        y='inverse_rank',
+                        figsize=[12, 6],
+                        grid=True,
+                        xlim=args.xlim)
 
+   plt.savefig(args.outfile)
 
-args = parser.parse_args()
+   #plt.show()
 
-df = pd.read_csv('results/dracula.csv', header=None,
-                 names=('word', 'word_frequency'))
-df['rank'] = df['word_frequency'].rank(ascending=False,
-                                       method='max')
-df['inverse_rank'] = 1 / df['rank']
-ax = df.plot.scatter(x='word_frequency',
-                     y='inverse_rank',
-                     figsize=[12, 6],
-                     grid=True,
-                     xlim=args.xlim)
+if __name__ == '__main__':
+   parser = argparse.ArgumentParser(description="Plot word counts")
+   parser.add_argument('infile', type=argparse.FileType('r'),
+                     nargs='?', default='-',
+                        help='Word count csv file name')
+   parser.add_argument('--xlim', type=float, nargs=2,
+                     metavar=('XMIN', 'XMAX'),
+                     default=None, help='X-axis limits')
+   parser.add_argument('--outfile', type=str,
+                     default='plotcounts.pdf',
+                     help='Output image file name')
 
-plt.savefig(args.outfile)
+   args = parser.parse_args()
 
-#plt.show()
+   main(args)
+
